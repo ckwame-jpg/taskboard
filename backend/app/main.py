@@ -16,9 +16,54 @@ from app.ws import manager
 load_dotenv()
 
 
+DEMO_EMAIL = "demo@taskboard.dev"
+DEMO_PASSWORD = "demo1234"
+
+
+def seed_demo_data():
+    from app.auth import hash_password
+    db = SessionLocal()
+    try:
+        existing = db.query(models.User).filter(models.User.email == DEMO_EMAIL).first()
+        if existing:
+            return
+
+        user = models.User(email=DEMO_EMAIL, hashed_password=hash_password(DEMO_PASSWORD), display_name="Demo User")
+        db.add(user)
+        db.flush()
+
+        board = models.Board(title="Weekend Plans", owner_id=user.id)
+        db.add(board)
+        db.flush()
+
+        member = models.BoardMember(board_id=board.id, user_id=user.id, role="owner")
+        db.add(member)
+
+        cols = [
+            models.BoardColumn(board_id=board.id, title="To Do", position=0),
+            models.BoardColumn(board_id=board.id, title="In Progress", position=1),
+            models.BoardColumn(board_id=board.id, title="Done", position=2),
+        ]
+        db.add_all(cols)
+        db.flush()
+
+        cards = [
+            models.Card(column_id=cols[0].id, title="Make coffee", description="The good beans, not the instant stuff", position=0, created_by=user.id),
+            models.Card(column_id=cols[0].id, title="Go for a run", description="At least 3km, no excuses", position=1, created_by=user.id),
+            models.Card(column_id=cols[0].id, title="Call mom", position=2, created_by=user.id),
+            models.Card(column_id=cols[1].id, title="Grocery shopping", description="Milk, eggs, and way too many snacks", position=0, created_by=user.id),
+            models.Card(column_id=cols[2].id, title="Clean the apartment", position=0, created_by=user.id),
+        ]
+        db.add_all(cards)
+        db.commit()
+    finally:
+        db.close()
+
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     Base.metadata.create_all(bind=engine)
+    seed_demo_data()
     yield
 
 
