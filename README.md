@@ -1,5 +1,7 @@
 # TaskBoard
 
+[![CI](https://github.com/ckwame-jpg/taskboard/actions/workflows/ci.yml/badge.svg)](https://github.com/ckwame-jpg/taskboard/actions/workflows/ci.yml)
+
 A real-time collaborative task board built with FastAPI and Next.js. Multiple users can view and manage the same board simultaneously - card moves, column changes, and new tasks show up instantly for everyone via WebSockets.
 
 ## Tech Stack
