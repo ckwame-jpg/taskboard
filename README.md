@@ -1,6 +1,6 @@
 # TaskBoard
 
-A real-time collaborative task board built with FastAPI and Next.js. Multiple users can view and manage the same board simultaneously — card moves, column changes, and new tasks show up instantly for everyone via WebSockets.
+A real-time collaborative task board built with FastAPI and Next.js. Multiple users can view and manage the same board simultaneously - card moves, column changes, and new tasks show up instantly for everyone via WebSockets.
 
 ## Tech Stack
 
@@ -10,14 +10,14 @@ A real-time collaborative task board built with FastAPI and Next.js. Multiple us
 
 ## Features
 
-- **Real-time sync** — WebSocket broadcasts every mutation (card created, moved, deleted, etc.) to all connected clients
-- **Drag and drop** — Move cards between columns with @dnd-kit, with optimistic UI updates
-- **Role-based access** — Three roles per board:
-  - **Owner** — full control, can invite members and delete the board
-  - **Editor** — create, update, delete cards and columns
-  - **Viewer** — read-only access
-- **JWT authentication** — register/login flow with secure password hashing
-- **Board invitations** — invite users by email with a specific role
+- **Real-time sync** - WebSocket broadcasts every mutation (card created, moved, deleted, etc.) to all connected clients
+- **Drag and drop** - Move cards between columns with @dnd-kit, with optimistic UI updates
+- **Role-based access** - Three roles per board:
+  - **Owner** - full control, can invite members and delete the board
+  - **Editor** - create, update, delete cards and columns
+  - **Viewer** - read-only access
+- **JWT authentication** - register/login flow with secure password hashing
+- **Board invitations** - invite users by email with a specific role
 
 ## Quick Start
 
