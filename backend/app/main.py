@@ -1,16 +1,18 @@
-import os
 from contextlib import asynccontextmanager
+
 from dotenv import load_dotenv
-from fastapi import FastAPI, WebSocket, WebSocketDisconnect, Query
+from fastapi import FastAPI, Query, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
 from jose import JWTError, jwt
-from app.database import Base, engine, SessionLocal
+
 from app import models
-from app.auth import router as auth_router, SECRET_KEY, ALGORITHM
-from app.routes.users import router as users_router
+from app.auth import ALGORITHM, SECRET_KEY
+from app.auth import router as auth_router
+from app.database import Base, SessionLocal, engine
 from app.routes.boards import router as boards_router
-from app.routes.columns import router as columns_router
 from app.routes.cards import router as cards_router
+from app.routes.columns import router as columns_router
+from app.routes.users import router as users_router
 from app.ws import manager
 
 load_dotenv()
