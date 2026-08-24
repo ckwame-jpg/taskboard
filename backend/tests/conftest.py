@@ -1,7 +1,9 @@
 import os
 
-# Set test database URL before any app imports
+# Set test config before any app imports. app.auth reads SECRET_KEY at import
+# time, so without a default here a fresh clone fails to collect.
 os.environ["DATABASE_URL"] = "sqlite:///./test.db"
+os.environ.setdefault("SECRET_KEY", "test-secret-key")
 
 import pytest
 from fastapi.testclient import TestClient
